@@ -1,0 +1,1 @@
+Обучение "React и Redux Toolkit" Purple School
