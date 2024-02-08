@@ -1,9 +1,15 @@
-import './App.css'
+import './App.css';
+import Button from './components/Button/Button.jsx';
+import JournalItem from './components/JournalItem/JournalItem.jsx';
 
 function App() {
-  return (
-      <div>Проект</div>
-  )
+	return (
+		<>
+
+			<JournalItem/>
+			<Button/>
+		</>
+	);
 }
 
-export default App
+export default App;
