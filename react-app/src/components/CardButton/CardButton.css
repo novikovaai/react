@@ -1,0 +1,18 @@
+.card-button {
+    padding: 20px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    text-align: start;
+    display: block;
+}
+
+.card-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
