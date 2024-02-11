@@ -1,8 +1,9 @@
-import './Button.css'
-function Button() {
+import './Button.css';
+
+function Button({text, onClick}) {
 	return (
 		<>
-			<button className='button accent'>Сохранить</button>
+			<button className='button accent' onClick={onClick}>{text}</button>
 		</>
 	);
 }

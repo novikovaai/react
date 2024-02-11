@@ -1,0 +1,13 @@
+.journal-add-button {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.03);
+}
