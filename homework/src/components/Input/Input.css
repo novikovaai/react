@@ -1,0 +1,26 @@
+.input {
+    width: 384px;
+    border: 1px solid #323B54;
+    background-color: #323B54;
+    color: #475069;
+    padding: 24px;
+}
+.test {
+    position: relative;
+}
+.input-img {
+    padding-left: 56px;
+}
+
+.input::placeholder {
+    color: #475069;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.search-img {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}

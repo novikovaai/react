@@ -1,7 +1,9 @@
 import './App.css';
-import Heading from '../components/Heading/Heading.jsx';
-import Paragraph from '../components/Paragraph/Paragraph.jsx';
-import Button from '../components/Button/Button.jsx';
+import Heading from './components/Heading/Heading.jsx';
+import Paragraph from './components/Paragraph/Paragraph.jsx';
+import Button from './components/Button/Button.jsx';
+import Input from './components/Input/Input.jsx';
+import Search from './components/Search/Search.jsx';
 
 function App() {
 	const data = [{
@@ -19,9 +21,14 @@ function App() {
 			<Paragraph
 				text={data[0].text}
 			/>
-			<Button
-				text={data[0].textOnButton}
+			<Search/>
+
+			<Input
+				placeholder={'Ваше имя'}
+				img={''}
 			/>
+
+
 		</>
 	);
 }
