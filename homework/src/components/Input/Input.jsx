@@ -1,24 +1,30 @@
 import './Input.css';
+import {useState} from 'react';
 
-function Input({placeholder, img}) {
+function Input({placeholder, img, type}) {
 	const cls = () => {
 		if (img) {
 			return 'input input-img';
 		}
 		return 'input';
 	};
-	
-	const isImg = () => {
-		if (img) {
-			return `/public/${img}.svg`;
-		}
-		return '';
+	const [inputData, setInputData] = useState('');
+	const inputChange = (e) => {
+		setInputData(e.target.value);
 	};
+
 	return (
 		<>
 			<div className='test'>
-				<img src={isImg()} alt="" className='search-img'/>
-				<input type="text" placeholder={placeholder} className={cls()}/>
+				<img src={img} alt="" className='search-img'/>
+				<input
+					name={type}
+					value={inputData}
+					onChange={inputChange}
+					type="text"
+					placeholder={placeholder}
+					className={cls()}
+				/>
 			</div>
 		</>
 	);

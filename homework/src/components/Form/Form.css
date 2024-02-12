@@ -1,0 +1,11 @@
+.form-search {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 80px;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+}

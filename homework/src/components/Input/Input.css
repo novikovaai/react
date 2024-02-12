@@ -1,9 +1,13 @@
 .input {
     width: 384px;
-    border: 1px solid #323B54;
+    border: 1px solid #475069;
     background-color: #323B54;
-    color: #475069;
     padding: 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #FFFFFF;
 }
 .test {
     position: relative;

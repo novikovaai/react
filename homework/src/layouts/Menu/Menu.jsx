@@ -1,10 +1,14 @@
 import './Menu.css';
+import Logo from '../../components/Logo/Logo.jsx';
 
 function Menu({children}) {
 
 	return (
 		<div className='menu'>
-			{children}
+			<Logo/>
+			<div className='menu__items'>
+				{children}
+			</div>
 		</div>
 	);
 }
