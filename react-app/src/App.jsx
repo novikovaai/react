@@ -11,41 +11,45 @@ import {useState} from 'react';
 import JournalForm from './components/JournalForm/JournalForm.jsx';
 
 function App() {
-	const data = [{
-		title: 'Подготовка к обновлению курсов',
-		text: 'Сегодня провёл весь день за',
-		date: new Date()
-	},
-	{
-		title: 'Поход в годы',
-		text: 'Горные походы открывают удивительные природные ландшафты',
-		date: new Date()
-	}];
+	const data = [
+		// {
+		// 	id: 1,
+		// 	title: 'Подготовка к обновлению курсов',
+		// 	text: 'Сегодня провёл весь день за',
+		// 	date: new Date()
+		// },
+		// {
+		// 	id: 2,
+		// 	title: 'Поход в годы',
+		// 	text: 'Горные походы открывают удивительные природные ландшафты',
+		// 	date: new Date()
+		// }
+	];
+	const [journalData, setJournalData] = useState(data);
+	const addJournalData = (e) => {
+		setJournalData(oldData => [...oldData, {
+			id: oldData.length > 0 ? Math.max(...oldData.map(i => i.id)) + 1 : 1,
+			title: e.title,
+			text: e.text,
+			date: new Date(e.date)
+		}]);
+	};
+
 
 	return (
 		<div className='app'>
 			<LeftPanel>
 				<Header/>
 				<JournalAddButton/>
-				<JournalList>
-					<CardButton>
-						<JournalItem
-							title={data[0].title}
-							text={data[0].text}
-							date={data[0].date}
-						/>
-					</CardButton>
-					<CardButton>
-						<JournalItem
-							title={data[1].title}
-							text={data[1].text}
-							date={data[1].date}
-						/>
-					</CardButton>
-				</JournalList>
+				<JournalList
+					journalData={journalData}
+				/>
 			</LeftPanel>
 			<Body>
-				<JournalForm/>
+				<JournalForm
+					addJournalData={addJournalData}
+				/>
+
 			</Body>
 
 
