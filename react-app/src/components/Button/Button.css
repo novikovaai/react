@@ -9,6 +9,7 @@
     cursor: pointer;
     transition: background 0.25s;
     border: none;
+    width: fit-content;
 }
 .accent:hover {
     background: #2724a3;
