@@ -2,7 +2,7 @@ import './MovieList.css';
 import CardButton from '../CardButton/CardButton.jsx';
 import MovieCard from '../MovieCard/MovieCard.jsx';
 
-function MovieList() {
+function MovieList({favList}) {
 	const movies = [
 		{
 			id: 1,
@@ -58,7 +58,6 @@ function MovieList() {
 		return <p>Давайте что-нибудь найдем!</p>;
 	}
 
-
 	return 	<div className='movies-list'>
 		{movies.map(e => {
 			return <CardButton key={e.id}>
@@ -66,6 +65,7 @@ function MovieList() {
 					reviews={e.reviews}
 					poster={e.poster}
 					title={e.title}
+					inFavs={favList.find(el => el.id === e.id) ? true : false}
 				/>
 			</CardButton>;
 		})}

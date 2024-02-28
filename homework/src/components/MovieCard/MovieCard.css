@@ -15,6 +15,7 @@
 
 .movie-card__poster {
     align-self: center;
+    border-radius: 8px;
 }
 
 .movie-card__title {
@@ -39,11 +40,12 @@
 }
 
 .in-fav {
-    color: #32856e;
+
+    color: #37D8A7;
 }
 
 .in-fav:hover {
-    color: #37D8A7;
+    color: #32856e;
 }
 
 .movie-card__button {

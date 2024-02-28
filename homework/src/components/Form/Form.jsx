@@ -2,44 +2,25 @@ import './Form.css';
 import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
 
-function Form({type}) {
-	const formType = {
-		'search': {
-			placeholder: 'Введите название',
-			img: '/public/search-icon.svg',
-			text: 'Искать',
-			formClass: 'form-search',
-			submitForm(e) {
-				e.preventDefault();
-				const formDate = new FormData(e.target);
-				const formProps = Object.fromEntries(formDate);
-				console.log(formProps);
-			}
-		},
-		'login': {
-			placeholder: 'Ваше имя',
-			img: '',
-			text: 'Войти в профиль',
-			formClass: 'form-login',
-			submitForm(e) {
-				e.preventDefault();
-				const formDate = new FormData(e.target);
-				const formProps = Object.fromEntries(formDate);
-				console.log(formProps);
-			}
-		}
+function Form({type, placeholder, img, text, formClass}) {
+
+	const submitForm = (e) => {
+		e.preventDefault();
+		const formDate = new FormData(e.target);
+		const formProps = Object.fromEntries(formDate);
+		console.log(formProps);
 	};
 
 	return (
 		<>
-			<form action="" className={formType[type].formClass} onSubmit={formType[type].submitForm}>
+			<form action="" className={formClass} onSubmit={submitForm}>
 				<Input
-					placeholder={formType[type].placeholder}
-					img={formType[type].img}
+					placeholder={placeholder}
+					img={img}
 					type={type}
 				/>
 				<Button
-					text={formType[type].text}
+					text={text}
 				/>
 			</form>
 		</>

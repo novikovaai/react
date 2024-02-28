@@ -13,6 +13,29 @@ function App() {
 		text: 'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'
 	}
 	];
+	const formType = {
+		search: {
+			placeholder: 'Введите название',
+			img: '/public/search-icon.svg',
+			text: 'Искать',
+			formClass: 'form-search'
+		},
+		login: {
+			placeholder: 'Ваше имя',
+			img: '',
+			text: 'Войти в профиль',
+			formClass: 'form-login'
+		}
+	};
+	
+	const favList = [
+		{
+			id: 5,
+			reviews: 8125,
+			poster: '/public/posters/money-heist-poster.jpg',
+			title: 'Money Heist'
+		}
+	];
 
 
 
@@ -24,9 +47,14 @@ function App() {
 			</Menu>
 			<Heading text={data[0].title}/>
 			<Paragraph text={data[0].text}/>
-			<Form type={'search'}/>
-			<MovieList/>
-			{/*<Form type={'login'}/>*/}
+			<Form
+				type={formType.search}
+				placeholder={formType.search.placeholder}
+				img={formType.search.img}
+				text={formType.search.text}
+				formClass={formType.search.formClass}
+			/>
+			<MovieList favList={favList}/>
 		</>
 	);
 }
