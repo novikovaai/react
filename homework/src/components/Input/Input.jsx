@@ -1,13 +1,9 @@
-import './Input.css';
+import styles from './Input.module.css';
 import {useState} from 'react';
+import cn from 'classnames';
 
 function Input({placeholder, img, type}) {
-	const cls = () => {
-		if (img) {
-			return 'input input-img';
-		}
-		return 'input';
-	};
+
 	const [inputData, setInputData] = useState('');
 	const inputChange = (e) => {
 		setInputData(e.target.value);
@@ -15,15 +11,17 @@ function Input({placeholder, img, type}) {
 
 	return (
 		<>
-			<div className='test'>
-				<img src={img} alt="" className='search-img'/>
+			<div className={styles.test}>
+				<img src={img} alt="" className={styles['search-img']}/>
 				<input
 					name={type}
 					value={inputData}
 					onChange={inputChange}
 					type="text"
 					placeholder={placeholder}
-					className={cls()}
+					className={cn(styles.input, {
+						[styles['input-img']]: img
+					})}
 				/>
 			</div>
 		</>

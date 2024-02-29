@@ -1,13 +1,21 @@
-import './Navigation.css';
+import styles from './Navigation.module.css';
+import cn from 'classnames';
 
 function Navigation() {
 
 	return (
-		<nav className='navigation'>
-			<a href="#" className='navigation__item navigation__search navigation__active'>Поиск фильмов</a>
-			<div className="navigation__item navigation__favorites">
-				<a href="#" className='navigation__my'>Мои фильмы</a>
-				<div className='navigation__count'>0</div>
+		<nav className={styles.navigation}>
+			<a href="#" className={cn(
+				styles['navigation__item'],
+				styles['navigation__search'],
+				styles['navigation__active'])
+			}>Поиск фильмов</a>
+			<div className={cn(
+				styles['navigation__item'],
+				styles['navigation__favorites']
+			)}>
+				<a href="#" className={styles['navigation__my']}>Мои фильмы</a>
+				<div className={styles['navigation__count']}>0</div>
 			</div>
 		</nav>
 	);

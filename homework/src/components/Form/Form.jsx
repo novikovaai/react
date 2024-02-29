@@ -1,4 +1,4 @@
-import './Form.css';
+import styles from './Form.module.css';
 import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
 
@@ -13,7 +13,7 @@ function Form({type, placeholder, img, text, formClass}) {
 
 	return (
 		<>
-			<form action="" className={formClass} onSubmit={submitForm}>
+			<form action="" className={styles[formClass]} onSubmit={submitForm}>
 				<Input
 					placeholder={placeholder}
 					img={img}
