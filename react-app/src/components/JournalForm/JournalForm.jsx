@@ -1,48 +1,67 @@
 import style from './JournalForm.module.css';
 import Button from '../Button/Button.jsx';
-import {useState} from 'react';
+import {useEffect, useReducer, useRef, useState} from 'react';
 import cn from 'classnames';
+import {INITIAL_STATE, formReducer} from './JournalForm.state.js';
+import Input from '../Input/Input.jsx';
+
+
 function JournalForm({addJournalData}) {
-	const [formValidState, setFormValidState] = useState({
-		title: true,
-		text: true,
-		date: true
-	});
+	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
+	const { isValid, isFormReadyToSubmit, values } = formState;
+	const titleRef = useRef();
+	const dateRef = useRef();
+	const textRef = useRef()
+
+	const focusError = (isValid) => {
+		switch (true) {
+		case !isValid.title:
+			titleRef.current.focus();
+			break;
+		case !isValid.date:
+			dateRef.current.focus();
+			break;
+		case !isValid.text:
+			textRef.current.focus();
+			break;
+		}
+	};
+	useEffect(() => {
+		let timerID;
+		if (!isValid.date || !isValid.text || !isValid.title ) {
+			focusError(isValid);
+			timerID = setTimeout( () => {
+				dispatchForm({ type: 'RESET_VALIDITY' });
+			}, 2000);
+		}
+		return () => {
+			clearTimeout(timerID);
+		};
+	}, [isValid]);
+
+	useEffect(() => {
+		if (isFormReadyToSubmit) {
+			addJournalData(values);
+			dispatchForm({type: 'CLEAR'});
+		}
+	}, [isFormReadyToSubmit, values, addJournalData]);
+
+	const onChange = (e) => {
+		dispatchForm({type: 'SET_VALUES', payload: { [e.target.name]: e.target.value}});
+	}
 	const addJournalItem = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		const formProps = Object.fromEntries(formData);
-		let isFormValid = true;
-		if(!formProps.title?.trim().length) {
-			setFormValidState(state => ({...state, title: false}));
-			isFormValid = false;
-		} else {
-			setFormValidState(state => ({...state, title: true}));
-		}
-		if(!formProps.text?.trim().length) {
-			setFormValidState(state => ({...state, text: false}));
-			isFormValid = false;
-		} else {
-			setFormValidState(state => ({...state, text: true}));
-		}
-		if(!formProps.date) {
-			setFormValidState(state => ({...state, date: false}));
-			isFormValid = false;
-		} else {
-			setFormValidState(state => ({...state, date: true}));
-		}
-		if(!isFormValid) {
-			return;
-		}
-		addJournalData(formProps);
+		// console.log()
+		dispatchForm({type: 'SUBMIT', payload: formProps});
+
 	};
 	return (
 		<>
 			<form className={style['journal-form']} onSubmit={addJournalItem}>
 				<div>
-					<input type="text" name="title" className={cn(style['input-title'], {
-						[style['invalid']]: !formValidState.title
-					})}/>
+					<Input type="text" ref={titleRef} isValid={isValid.title} onChange={onChange} value={values.title} name="title" appearance='title'/>
 				</div>
 				<div>
 					<div className={style['journal-form__info']}>
@@ -50,21 +69,19 @@ function JournalForm({addJournalData}) {
 							<img src="/public/date-icon.svg" alt="Иконка даты"/>
 							Дата
 						</label>
-						<input type="date" name="date" id="date" className={cn(style['input'], {
-							[style['invalid']]: !formValidState.date
-						})}/>
+						<Input type="date" isValid={isValid.date} ref={dateRef} onChange={onChange} value={values.date} name="date" id="date"/>
 					</div>
 					<div className={style['journal-form__info']}>
 						<label htmlFor="tag" className={style['journal-form__labels']}>
 							<img src="/public/tags-icon.svg" alt="Иконка даты"/>
 							Метки
 						</label>
-						<input type="text" name="tag" id="tag" className={style['input']}/>
+						<Input type="text" ref={textRef} isValid={isValid.date} onChange={onChange} value={values.tag} name="tag" id="tag" />
 					</div>
 				</div>
 
-				<textarea name="text" id="" cols="30" rows="10" className={cn(style['input'], {
-					[style['invalid']]: !formValidState.text
+				<textarea name="text" onChange={onChange} value={values.text} id="" cols="30" rows="10" className={cn(style['input'], {
+					[style['invalid']]: !isValid.text
 				})}></textarea>
 				<Button text='Сохранить' onClick={() => {
 					console.log('Нажали');
