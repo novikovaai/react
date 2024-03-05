@@ -1,0 +1,26 @@
+.profile {
+    display: flex;
+    gap: 85px;
+    align-items: center;
+}
+
+.profile__item {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #A8AEBF;
+}
+
+.profile__login {
+    display: flex;
+    gap: 8px;
+}
+
+.profile__name {
+    display: flex;
+    gap: 8px;
+}
+
+.profile__inactive {
+    display: none;
+}
