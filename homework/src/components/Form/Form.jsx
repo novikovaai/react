@@ -6,7 +6,7 @@ import {useRef, useReducer, useEffect} from 'react';
 
 function Form({type, func}) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
-	const { isValid, value } = formState;
+	const { isValid, value, isFormReadyToSubmit } = formState;
 	const inputRef = useRef();
 	const focusError = (isValid) => {
 		if(!isValid) {
@@ -26,6 +26,15 @@ function Form({type, func}) {
 		};
 	}, [isValid]);
 
+	useEffect(() => {
+		if (isFormReadyToSubmit) {
+			func(value);
+			if (type !== 'search' ) {
+				dispatchForm({type: 'CLEAR'});
+			}
+		}
+	}, [isFormReadyToSubmit, value, func]);
+
 	const onChange = (e) => {
 		dispatchForm({type: 'SET_VALUE', payload: {value: e.target.value}});
 	};
@@ -34,9 +43,7 @@ function Form({type, func}) {
 		e.preventDefault();
 		const formDate = new FormData(e.target);
 		const formProps = Object.fromEntries(formDate);
-		console.log(formProps)
-		func(dispatchForm({type: 'SUBMIT', payload: formProps}));
-
+		dispatchForm({type: 'SUBMIT', payload: formProps});
 	};
 	return (
 		<>
@@ -49,6 +56,7 @@ function Form({type, func}) {
 					ref={inputRef}
 					onChange={onChange}
 					value={value}
+					isValid={isValid}
 				/>
 				<Button
 					text={formType[type].text}

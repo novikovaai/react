@@ -40,7 +40,7 @@ function App() {
 
 	const [userData, setUserData] = useLocalStorage('users');
 	const addUserData = item => {
-		const nameExist = userData.map(e => e.name).find(el => el === item.login);
+		const nameExist = userData.map(e => e.name).find(el => el === item);
 		if (nameExist) {
 			setUserData([...userData.map(el => {
 				if (el.name === nameExist) {
@@ -58,7 +58,7 @@ function App() {
 			return;
 		}
 		setUserData([...mapItems(userData), {
-			name: item.login,
+			name: item,
 			isLogged: true
 		}]);
 	};

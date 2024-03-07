@@ -3,7 +3,7 @@ import {forwardRef, useState} from 'react';
 import cn from 'classnames';
 
 const Input = forwardRef(
-	function Input({img, type, ...props}, ref) {
+	function Input({img, type, isValid, ...props}, ref) {
 
 	
 		return (
@@ -16,7 +16,8 @@ const Input = forwardRef(
 						name={type}
 						type="text"
 						className={cn(styles.input, {
-							[styles['input-img']]: img
+							[styles['input-img']]: img,
+							[styles['invalid']]: !isValid
 						})}
 					/>
 				</div>

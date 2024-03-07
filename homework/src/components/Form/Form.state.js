@@ -16,21 +16,25 @@ export const formType = {
 export const INITIAL_STATE = {
 	value: '',
 	isValid: true,
-}
+	isFormReadyToSubmit: false
+};
 
 export function formReducer(state, action) {
-	console.log({...action.payload})
 	switch (action.type) {
 	case 'SET_VALUE':
-		return {...state, value: {...action.payload}};
+		return {...state, ...action.payload};
 	case 'RESET_VALIDITY':
 		return {...state, isValid: INITIAL_STATE.isValid};
 	case 'SUBMIT': {
-		const validity = action.payload?.value.trim().length;
+		const type = Object.keys(action.payload)[0];
+		const validity = action.payload?.[type].trim().length > 0;
 		return {
-			value: action.payload.value,
-			isValid: validity
+			value: action.payload[type],
+			isValid: validity,
+			isFormReadyToSubmit: validity
 		};
 	}
+	case 'CLEAR':
+		return {...state, value: INITIAL_STATE.value, isFormReadyToSubmit: false};
 	}
 }
