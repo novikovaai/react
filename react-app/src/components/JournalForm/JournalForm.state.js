@@ -1,12 +1,12 @@
 export const INITIAL_STATE = {
 	isValid: {
-		title: true,
 		text: true,
+		title: true,
 		date: true
 	},
 	values: {
-		title: '',
 		text: '',
+		title: '',
 		date: '',
 		tag: ''
 	},
@@ -14,22 +14,22 @@ export const INITIAL_STATE = {
 };
 
 export function formReducer(state, action) {
-	switch (action.type) {
+	switch(action.type) {
 	case 'SET_VALUES':
-		return {...state, values: {...state.value, ...action.payload}};
+		return { ...state, values: { ...state.values, ...action.payload}};
 	case 'CLEAR':
-		return {...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};
+		return { ...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};
 	case 'RESET_VALIDITY':
-		return {...state, isValid: INITIAL_STATE.isValid};
-	case 'SUBMIT': {
-		const titleValidity = action.payload.title?.trim().length;
-		const textValidity = action.payload.text?.trim().length;
-		const dateValidity = action.payload.date;
+		return { ...state, isValid: INITIAL_STATE.isValid};
+	case 'SUBMIT' : {
+		const titleValidity = state.values.title?.trim().length;
+		const textValidity = state.values.text?.trim().length;
+		const dateValidity = state.values.date;
 		return {
-			values: action.payload,
-			isValid:{
-				title: titleValidity,
+			...state,
+			isValid: {
 				text: textValidity,
+				title: titleValidity,
 				date: dateValidity
 			},
 			isFormReadyToSubmit: titleValidity && textValidity && dateValidity
