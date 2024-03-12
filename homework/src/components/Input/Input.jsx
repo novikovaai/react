@@ -1,5 +1,5 @@
 import styles from './Input.module.css';
-import {forwardRef, useState} from 'react';
+import {forwardRef} from 'react';
 import cn from 'classnames';
 
 const Input = forwardRef(

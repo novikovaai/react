@@ -2,12 +2,17 @@ import styles from './Form.module.css';
 import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
 import {formType, INITIAL_STATE, formReducer} from './Form.state.js';
-import {useRef, useReducer, useEffect} from 'react';
+import {useRef, useReducer, useEffect, useContext} from 'react';
+import {UserContext} from '../../context/user.context.jsx';
+import {useLocalStorage} from '../../hooks/use-localstorage.hook.js';
+
 
 function Form({type, func}) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const { isValid, value, isFormReadyToSubmit } = formState;
 	const inputRef = useRef();
+	const { setUserInfo } = useContext(UserContext);
+	const [userData] = useLocalStorage('users');
 	const focusError = (isValid) => {
 		if(!isValid) {
 			inputRef.current.focus();
@@ -30,10 +35,21 @@ function Form({type, func}) {
 		if (isFormReadyToSubmit) {
 			func(value);
 			if (type !== 'search' ) {
+				const infoExists = userData.find(el => el.name === value);
+				if(infoExists) {
+					setUserInfo(...userData.filter(el => el.name === value));
+				} else {
+					setUserInfo({
+						name: value,
+						isLogged: true,
+						favList: []
+					});
+				}				
 				dispatchForm({type: 'CLEAR'});
 			}
 		}
-	}, [isFormReadyToSubmit, value, func]);
+	}, [isFormReadyToSubmit, value, func, type, setUserInfo, userData]);
+
 
 	const onChange = (e) => {
 		dispatchForm({type: 'SET_VALUE', payload: {value: e.target.value}});

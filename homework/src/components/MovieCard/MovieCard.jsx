@@ -30,7 +30,6 @@ function MovieCard({reviews, poster, title, inFavs}) {
 					{'В избранно' + (favsState ? 'м' : 'е')}
 				</div>
 			</div>
-
 		</>
 	);
 }

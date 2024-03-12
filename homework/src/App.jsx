@@ -7,7 +7,9 @@ import Navigation from './components/Navigation/Navigation.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import MovieList from './components/MovieList/MovieList.jsx';
 import {useLocalStorage} from './hooks/use-localstorage.hook.js';
-import {useEffect, useState} from 'react';
+import {useContext} from 'react';
+import {UserContext} from './context/user.context.jsx';
+import {UserContextProvider} from './context/user.context.jsx';
 
 function mapItems(data) {
 	if (!data) {
@@ -19,17 +21,6 @@ function mapItems(data) {
 	}));
 }
 
-function sendToProfile(data) {
-	if (!data) {
-		return [{
-			name: '',
-			isLogged: false
-		}];
-	}
-	return data;
-}
-
-
 
 function App() {
 	const data = [{
@@ -37,7 +28,6 @@ function App() {
 		text: 'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'
 	}
 	];
-
 	const [userData, setUserData] = useLocalStorage('users');
 	const addUserData = item => {
 		const nameExist = userData.map(e => e.name).find(el => el === item);
@@ -63,9 +53,7 @@ function App() {
 		}]);
 	};
 
-	const userLogOut = () => {
-		setUserData([...mapItems(userData)]);
-	};
+
 
 
 	const toSearch = (info) => {
@@ -75,8 +63,7 @@ function App() {
 
 
 	const favList = [
-		{
-			id: 5,
+		{	id: 5,
 			reviews: 8125,
 			poster: '/public/posters/money-heist-poster.jpg',
 			title: 'Money Heist'
@@ -84,26 +71,25 @@ function App() {
 	];
 
 	return (
-		<>
-			<Menu>
-				<Navigation/>
-				<Profile
-					profile={userData}
-					logout={userLogOut}
+		<UserContextProvider>
+			<>
+				<Menu>
+					<Navigation/>
+					<Profile/>
+				</Menu>
+				<Heading text={data[0].title}/>
+				<Paragraph text={data[0].text}/>
+				<Form
+					type={'search'}
+					func={toSearch}
 				/>
-			</Menu>
-			<Heading text={data[0].title}/>
-			<Paragraph text={data[0].text}/>
-			<Form
-				type={'search'}
-				func={toSearch}
-			/>
-			<Form
-				type={'login'}
-				func={addUserData}
-			/>
-			<MovieList favList={favList}/>
-		</>
+				<Form
+					type={'login'}
+					func={addUserData}
+				/>
+				<MovieList favList={favList}/>
+			</>
+		</UserContextProvider>
 	);
 }
 
