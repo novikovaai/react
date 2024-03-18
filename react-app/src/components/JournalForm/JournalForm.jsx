@@ -96,9 +96,9 @@ function JournalForm({addJournalData}) {
 				className={cn(style['input'], {
 					[style['invalid']]: !isValid.text
 				})}></textarea>
-			<Button text='Сохранить' onClick={() => {
+			<Button onClick={() => {
 				console.log('Нажали');
-			}}/>
+			}}>Сохранить</Button>
 		</form>
 
 
