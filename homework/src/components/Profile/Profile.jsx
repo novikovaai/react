@@ -9,17 +9,18 @@ function Profile() {
 
 	const {userInfo, setUserInfo} = useContext(UserContext);
 	const [userData, setUserData] = useLocalStorage('users');
-
+	console.log(userData)
 	const logout = () => {
+
+		setUserData(userData.map(i => ({
+			...i,
+			isLogged: false
+		})));
 		setUserInfo({
 			name: '',
 			isLogged: false,
 			favList: []
 		});
-		setUserData([...userData.map(i => ({
-			...i,
-			isLogged: false
-		}))]);
 	};
 
 

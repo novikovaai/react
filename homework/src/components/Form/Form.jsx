@@ -36,15 +36,20 @@ function Form({type, func}) {
 			func(value);
 			if (type !== 'search' ) {
 				const infoExists = userData.find(el => el.name === value);
-				if(infoExists) {
-					setUserInfo(...userData.filter(el => el.name === value));
-				} else {
-					setUserInfo({
-						name: value,
-						isLogged: true,
-						favList: []
-					});
-				}				
+				setUserInfo({
+					name: value,
+					isLogged: true,
+					favList: infoExists? infoExists.favList : []
+				});
+				// const infoExists = userData.find(el => el.name === value);
+				// if(infoExists) {
+				// 	setUserInfo(...userData.filter(el => el.name === value));
+				// } else {
+				// 	setUserInfo({
+				// 		name: value,
+				// 		isLogged: true
+				// 	});
+				// }
 				dispatchForm({type: 'CLEAR'});
 			}
 		}

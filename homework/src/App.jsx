@@ -23,21 +23,22 @@ function mapItems(data) {
 
 
 function App() {
-	const data = [{
-		title: 'Поиск',
-		text: 'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'
-	}
-	];
+	const data = {
+		mainPage: {
+			title: 'Поиск',
+			text: 'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'
+		}
+	};
 	const [userData, setUserData] = useLocalStorage('users');
 	const addUserData = item => {
-		const nameExist = userData.map(e => e.name).find(el => el === item);
-		if (nameExist) {
+		const userExists = userData.find(el => el.name === item);
+		if (userExists) {
 			setUserData([...userData.map(el => {
-				if (el.name === nameExist) {
+				if (el.name === userExists.name) {
 					return {
 						...el,
 						isLogged: true
-					};	
+					};
 				} else {
 					return {
 						...el,
@@ -49,7 +50,8 @@ function App() {
 		}
 		setUserData([...mapItems(userData), {
 			name: item,
-			isLogged: true
+			isLogged: true,
+			favList: []
 		}]);
 	};
 
@@ -77,8 +79,8 @@ function App() {
 					<Navigation/>
 					<Profile/>
 				</Menu>
-				<Heading text={data[0].title}/>
-				<Paragraph text={data[0].text}/>
+				<Heading text={data.mainPage.title}/>
+				<Paragraph text={data.mainPage.text}/>
 				<Form
 					type={'search'}
 					func={toSearch}
