@@ -1,17 +1,16 @@
 import styles from './Profile.module.css';
 import cn from 'classnames';
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {UserContext} from '../../context/user.context.jsx';
 import {useLocalStorage} from '../../hooks/use-localstorage.hook.js';
 
 
 function Profile() {
-
-	const {userInfo, setUserInfo} = useContext(UserContext);
 	const [userData, setUserData] = useLocalStorage('users');
-	console.log(userData)
-	const logout = () => {
+	const {userInfo, setUserInfo} = useContext(UserContext);
 
+
+	const logout = () => {
 		setUserData(userData.map(i => ({
 			...i,
 			isLogged: false
