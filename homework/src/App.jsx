@@ -10,6 +10,7 @@ import {useLocalStorage} from './hooks/use-localstorage.hook.js';
 import {useContext} from 'react';
 import {UserContext} from './context/user.context.jsx';
 import {UserContextProvider} from './context/user.context.jsx';
+import Input from './components/Input/Input.jsx';
 
 function mapItems(data) {
 	if (!data) {
@@ -55,7 +56,9 @@ function App() {
 		}]);
 	};
 
-
+	const userLogOut = () => {
+		setUserData(mapItems(userData));
+	};
 
 
 	const toSearch = (info) => {
@@ -77,7 +80,9 @@ function App() {
 			<>
 				<Menu>
 					<Navigation/>
-					<Profile/>
+					<Profile
+						func={userLogOut}
+					/>
 				</Menu>
 				<Heading text={data.mainPage.title}/>
 				<Paragraph text={data.mainPage.text}/>

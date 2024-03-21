@@ -4,7 +4,6 @@ import Button from '../Button/Button.jsx';
 import {formType, INITIAL_STATE, formReducer} from './Form.state.js';
 import {useRef, useReducer, useEffect, useContext} from 'react';
 import {UserContext} from '../../context/user.context.jsx';
-import {useLocalStorage} from '../../hooks/use-localstorage.hook.js';
 
 
 function Form({type, func}) {
@@ -12,7 +11,7 @@ function Form({type, func}) {
 	const { isValid, value, isFormReadyToSubmit } = formState;
 	const inputRef = useRef();
 	const { setUserInfo } = useContext(UserContext);
-	const [userData] = useLocalStorage('users');
+	// const [userData] = useLocalStorage('users');
 	const focusError = (isValid) => {
 		if(!isValid) {
 			inputRef.current.focus();
@@ -35,11 +34,10 @@ function Form({type, func}) {
 		if (isFormReadyToSubmit) {
 			func(value);
 			if (type !== 'search' ) {
-				const infoExists = userData.find(el => el.name === value);
 				setUserInfo({
 					name: value,
 					isLogged: true,
-					favList: infoExists? infoExists.favList : []
+					favList: []
 				});
 				// const infoExists = userData.find(el => el.name === value);
 				// if(infoExists) {
@@ -53,7 +51,7 @@ function Form({type, func}) {
 				dispatchForm({type: 'CLEAR'});
 			}
 		}
-	}, [isFormReadyToSubmit, value, func, type, setUserInfo, userData]);
+	}, [isFormReadyToSubmit, value, func, type]);
 
 
 	const onChange = (e) => {
