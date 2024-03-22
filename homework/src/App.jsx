@@ -94,7 +94,7 @@ function App() {
 					type={'login'}
 					func={addUserData}
 				/>
-				<MovieList favList={favList}/>
+				<MovieList/>
 			</>
 		</UserContextProvider>
 	);

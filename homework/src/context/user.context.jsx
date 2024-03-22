@@ -16,6 +16,8 @@ export const UserContextProvider = ({children}) => {
 		favList: []
 	});
 
+
+	console.log(userInfo)
 	return <UserContext.Provider value={{userInfo, setUserInfo}}>
 		{children}
 	</UserContext.Provider>;

@@ -37,7 +37,7 @@ function Form({type, func}) {
 				setUserInfo({
 					name: value,
 					isLogged: true,
-					favList: []
+					favList: [1]
 				});
 				// const infoExists = userData.find(el => el.name === value);
 				// if(infoExists) {

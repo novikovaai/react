@@ -1,16 +1,17 @@
 import styles from './MovieCard.module.css';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import cn from 'classnames';
+import {UserContext} from '../../context/user.context.jsx';
 
-function MovieCard({reviews, poster, title, inFavs}) {
+function MovieCard({reviews, poster, title, id, func}) {
 
 
+	const {userInfo} = useContext(UserContext);
+	const [favs, setFavs] = useState(userInfo.favList.includes(id));
 
-	const [favsState, setFavsState] = useState(inFavs);
 	const switchFavs = () => {
-		setFavsState(oldData => {
-			return !oldData;
-		});
+		func(id)
+		setFavs(userInfo.favList.includes(id))
 	};
 
 
@@ -24,10 +25,10 @@ function MovieCard({reviews, poster, title, inFavs}) {
 			<div className={styles['movie-card__title']}>{title}</div>
 			<div onClick={switchFavs}>
 				<div className={cn(styles['movie-card__favorites'], {
-					[styles['in-fav']]: favsState
+					[styles['in-fav']]: favs
 				})}>
-					<img src={'/public/' + (favsState ? 'favorites-active.svg' : 'like-icon.svg')} alt=''/>
-					{'В избранно' + (favsState ? 'м' : 'е')}
+					<img src={'/public/' + (favs ? 'favorites-active.svg' : 'like-icon.svg')} alt=''/>
+					{'В избранно' + (favs ? 'м' : 'е')}
 				</div>
 			</div>
 		</>
