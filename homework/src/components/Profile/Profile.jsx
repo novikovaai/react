@@ -1,20 +1,14 @@
 import styles from './Profile.module.css';
 import cn from 'classnames';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {UserContext} from '../../context/user.context.jsx';
 
 
-function Profile({func}) {
-	const {userInfo, setUserInfo} = useContext(UserContext);
-
+function Profile() {
+	const {userInfo, userLogout} = useContext(UserContext);
 
 	const logout = () => {
-		func();
-		setUserInfo({
-			name: '',
-			isLogged: false,
-			favList: []
-		});
+		userLogout()
 	};
 
 

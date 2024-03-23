@@ -10,7 +10,7 @@ function Form({type, func}) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const { isValid, value, isFormReadyToSubmit } = formState;
 	const inputRef = useRef();
-	const { setUserInfo } = useContext(UserContext);
+	const { addUserData } = useContext(UserContext);
 	// const [userData] = useLocalStorage('users');
 	const focusError = (isValid) => {
 		if(!isValid) {
@@ -32,23 +32,11 @@ function Form({type, func}) {
 
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
-			func(value);
-			if (type !== 'search' ) {
-				setUserInfo({
-					name: value,
-					isLogged: true,
-					favList: [1]
-				});
-				// const infoExists = userData.find(el => el.name === value);
-				// if(infoExists) {
-				// 	setUserInfo(...userData.filter(el => el.name === value));
-				// } else {
-				// 	setUserInfo({
-				// 		name: value,
-				// 		isLogged: true
-				// 	});
-				// }
+			if (type === 'login') {
+				addUserData(value);
 				dispatchForm({type: 'CLEAR'});
+			} else {
+				func(value);
 			}
 		}
 	}, [isFormReadyToSubmit, value, func, type]);
