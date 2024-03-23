@@ -44,7 +44,11 @@ export const UserContextProvider = ({children}) => {
 					};
 				}
 			}));
-			setUserInfo(userExists);
+			setUserInfo({
+				name: userExists.name,
+				isLogged: true,
+				favList: userExists.favList
+			});
 			return;
 		}
 		setUserData([...mapItems(userData), {
@@ -59,15 +63,39 @@ export const UserContextProvider = ({children}) => {
 		});
 	};
 	const userLogout = () => {
-		setUserData(mapItems(userData));
+		setUserData(userData.map(el => {
+			if (el.name === userInfo.name) {
+				return {
+					...el,
+					favList: userInfo.favList,
+					isLogged: false
+				};
+			} else {
+				return {
+					...el,
+					isLogged: false
+				};
+			}
+		}));
 		setUserInfo({
 			name: '',
 			isLogged: false,
 			favList: []
 		});
 	};
-	console.log(userInfo)
-	return <UserContext.Provider value={{userInfo, setUserInfo, userLogout, addUserData}}>
+	const switchFavs = (id) => {
+		const inFavs = userInfo.favList.indexOf(id);
+		console.log(userInfo.favList);
+		if(inFavs > -1) {
+			userInfo.favList.splice(inFavs, 1);
+			setUserInfo({...userInfo});
+		} else {
+			userInfo.favList.push(id);
+			setUserInfo({...userInfo});
+		}
+	};
+		
+	return <UserContext.Provider value={{userInfo, switchFavs, userLogout, addUserData}}>
 		{children}
 	</UserContext.Provider>;
 };

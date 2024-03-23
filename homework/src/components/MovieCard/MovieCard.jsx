@@ -3,17 +3,12 @@ import {useContext, useState} from 'react';
 import cn from 'classnames';
 import {UserContext} from '../../context/user.context.jsx';
 
-function MovieCard({reviews, poster, title, id, func}) {
+function MovieCard({reviews, poster, title, id}) {
 
 
-	const {userInfo} = useContext(UserContext);
-	const [favs, setFavs] = useState(userInfo.favList.includes(id));
-
-	const switchFavs = () => {
-		func(id)
-		setFavs(userInfo.favList.includes(id))
-	};
-
+	const {userInfo,switchFavs} = useContext(UserContext);
+	const inFavs = userInfo.favList.includes(id)
+	const toSwitch = () => switchFavs(id)
 
 	return (
 		<>
@@ -23,12 +18,13 @@ function MovieCard({reviews, poster, title, id, func}) {
 			</div>
 			<img src={poster} alt="Постер фильма" className={styles['movie-card__poster']}/>
 			<div className={styles['movie-card__title']}>{title}</div>
-			<div onClick={switchFavs}>
+			<div onClick={toSwitch}>
 				<div className={cn(styles['movie-card__favorites'], {
-					[styles['in-fav']]: favs
+					[styles['in-fav']]: inFavs
+
 				})}>
-					<img src={'/public/' + (favs ? 'favorites-active.svg' : 'like-icon.svg')} alt=''/>
-					{'В избранно' + (favs ? 'м' : 'е')}
+					<img src={'/public/' + (inFavs ? 'favorites-active.svg' : 'like-icon.svg')} alt=''/>
+					{'В избранно' + (inFavs ? 'м' : 'е')}
 				</div>
 			</div>
 		</>

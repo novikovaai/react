@@ -18,13 +18,9 @@ function App() {
 		}
 	};
 
-
-
 	const toSearch = (info) => {
 		console.log(info);
 	};
-
-
 
 	return (
 		<UserContextProvider>

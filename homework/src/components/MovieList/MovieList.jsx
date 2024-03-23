@@ -57,33 +57,18 @@ function MovieList() {
 		}
 
 	];
-	const {userInfo, setUserInfo} = useContext(UserContext);
+	const {userInfo} = useContext(UserContext);
 	if (movies.length === 0) {
 		return <p>Давайте что-нибудь найдем!</p>;
 	}
 
-	const switchFavs = (id) => {
-		const inFavs = userInfo.favList.indexOf(id);
-		if(inFavs > -1) {
-			setUserInfo(oldData => {
-				oldData.favList.splice(inFavs);
-				return oldData;
-			});
-		} else {
-			setUserInfo(oldData => {
-				oldData.favList.push(id);
-				return oldData;
-			});
-		}
-	};
-	console.log(userInfo)
+
 	return 	<div className={styles['movies-list']}>
 		{movies.map(e => {
 			return <CardButton key={e.id}>
 				<MovieCard
 					reviews={e.reviews}
 					poster={e.poster}
-					func={switchFavs}
 					id={e.id}
 					inFavs={userInfo.favList.includes(e.id)}
 				/>
