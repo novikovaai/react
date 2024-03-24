@@ -1,8 +1,11 @@
-import './MovieList.css';
+import styles from './MovieList.module.css';
 import CardButton from '../CardButton/CardButton.jsx';
 import MovieCard from '../MovieCard/MovieCard.jsx';
+import {useContext} from 'react';
+import {UserContext} from '../../context/user.context.jsx';
 
-function MovieList({favList}) {
+
+function MovieList() {
 	const movies = [
 		{
 			id: 1,
@@ -54,18 +57,20 @@ function MovieList({favList}) {
 		}
 
 	];
+	const {userInfo} = useContext(UserContext);
 	if (movies.length === 0) {
 		return <p>Давайте что-нибудь найдем!</p>;
 	}
 
-	return 	<div className='movies-list'>
+
+	return 	<div className={styles['movies-list']}>
 		{movies.map(e => {
 			return <CardButton key={e.id}>
 				<MovieCard
 					reviews={e.reviews}
 					poster={e.poster}
-					title={e.title}
-					inFavs={favList.find(el => el.id === e.id) ? true : false}
+					id={e.id}
+					inFavs={userInfo.favList.includes(e.id)}
 				/>
 			</CardButton>;
 		})}

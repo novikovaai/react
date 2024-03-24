@@ -1,26 +1,72 @@
-import './Form.css';
+import styles from './Form.module.css';
 import Input from '../Input/Input.jsx';
 import Button from '../Button/Button.jsx';
+import {formType, INITIAL_STATE, formReducer} from './Form.state.js';
+import {useRef, useReducer, useEffect, useContext} from 'react';
+import {UserContext} from '../../context/user.context.jsx';
 
-function Form({type, placeholder, img, text, formClass}) {
+
+function Form({type, func}) {
+	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
+	const { isValid, value, isFormReadyToSubmit } = formState;
+	const inputRef = useRef();
+	const { addUserData } = useContext(UserContext);
+	// const [userData] = useLocalStorage('users');
+	const focusError = (isValid) => {
+		if(!isValid) {
+			inputRef.current.focus();
+		}
+	};
+	useEffect(() => {
+		let timerID;
+		if (!isValid) {
+			focusError(isValid);
+			timerID = setTimeout( () => {
+				dispatchForm({ type: 'RESET_VALIDITY' });
+			}, 2000);
+		}
+		return () => {
+			clearTimeout(timerID);
+		};
+	}, [isValid]);
+
+	useEffect(() => {
+		if (isFormReadyToSubmit) {
+			if (type === 'login') {
+				addUserData(value);
+				dispatchForm({type: 'CLEAR'});
+			} else {
+				func(value);
+			}
+		}
+	}, [isFormReadyToSubmit, value, func, type]);
+
+
+	const onChange = (e) => {
+		dispatchForm({type: 'SET_VALUE', payload: {value: e.target.value}});
+	};
 
 	const submitForm = (e) => {
 		e.preventDefault();
 		const formDate = new FormData(e.target);
 		const formProps = Object.fromEntries(formDate);
-		console.log(formProps);
+		dispatchForm({type: 'SUBMIT', payload: formProps});
 	};
-
 	return (
 		<>
-			<form action="" className={formClass} onSubmit={submitForm}>
+
+			<form action="" className={styles[formType[type].formClass]} onSubmit={submitForm}>
 				<Input
-					placeholder={placeholder}
-					img={img}
+					placeholder={formType[type].placeholder}
+					img={formType[type].img}
 					type={type}
+					ref={inputRef}
+					onChange={onChange}
+					value={value}
+					isValid={isValid}
 				/>
 				<Button
-					text={text}
+					text={formType[type].text}
 				/>
 			</form>
 		</>

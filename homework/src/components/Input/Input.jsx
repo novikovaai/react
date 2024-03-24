@@ -1,33 +1,29 @@
-import './Input.css';
-import {useState} from 'react';
+import styles from './Input.module.css';
+import {forwardRef} from 'react';
+import cn from 'classnames';
 
-function Input({placeholder, img, type}) {
-	const cls = () => {
-		if (img) {
-			return 'input input-img';
-		}
-		return 'input';
-	};
-	const [inputData, setInputData] = useState('');
-	const inputChange = (e) => {
-		setInputData(e.target.value);
-	};
+const Input = forwardRef(
+	function Input({img, type, isValid, ...props}, ref) {
 
-	return (
-		<>
-			<div className='test'>
-				<img src={img} alt="" className='search-img'/>
-				<input
-					name={type}
-					value={inputData}
-					onChange={inputChange}
-					type="text"
-					placeholder={placeholder}
-					className={cls()}
-				/>
-			</div>
-		</>
-	);
-}
+	
+		return (
+			<>
+				<div className={styles.test}>
+					<img src={img} alt="" className={styles['search-img']}/>
+					<input
+						{...props}
+						ref={ref}
+						name={type}
+						type="text"
+						className={cn(styles.input, {
+							[styles['input-img']]: img,
+							[styles['invalid']]: !isValid
+						})}
+					/>
+				</div>
+			</>
+		);
+	}
+);
 
 export default Input;
