@@ -1,20 +1,45 @@
-import './Profile.css';
+import styles from './Profile.module.css';
+import cn from 'classnames';
+import {useContext, useEffect, useState} from 'react';
+import {UserContext} from '../../context/user.context.jsx';
+
 
 function Profile() {
+	const {userInfo, userLogout} = useContext(UserContext);
+
+	const logout = () => {
+		userLogout()
+	};
+
 
 	return (
-		<div className='profile'>
-			<div className='profile__item profile__login'>
+		<div className={styles.profile}>
+			<div className={cn(
+				styles['profile__item'],
+				styles['profile__login'], {
+					[styles['profile__inactive']]: userInfo.isLogged
+				}
+			)}>
 				<a href="#">Войти</a>
 				<img src="/public/login-icon.svg" alt=""/>
 			</div>
-			<div className="profile__item profile__name profile__inactive">
-				<a href="#">{/*{userName}*/}Имя</a>
+			<div className={cn(
+				styles['profile__item'],
+				styles['profile__name'], {
+					[styles['profile__inactive']]: !userInfo.isLogged
+				}
+			)}>
+				<a href="#">{userInfo.name}</a>
 				<img src="/public/user-icon.svg" alt=""/>
 			</div>
-			<div className='profile__item profile__logout profile__inactive'>
-				<a href="#">Выйти</a>
-			</div>
+			<button onClick={logout} className={cn(
+				styles['profile__item'],
+				styles['profile__logout'], {
+					[styles['profile__inactive']]: !userInfo.isLogged
+				}
+			)}>
+				Выйти
+			</button>
 		</div>
 	);
 }
