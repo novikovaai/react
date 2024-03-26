@@ -3,9 +3,33 @@
     flex-direction: column;
     gap: 30px;
     width: 100%;
+    position: relative;
 }
 
+.journal-form__title {
+    font-size: 32px;
+    font-weight: 600;
+}
 
+.journal-form__delete {
+    background: none;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    position: absolute;
+    right: 5px;
+    top:5px;
+    opacity: 0.35;
+}
+
+.journal-form__delete:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
 
 .journal-form__labels{
     display: flex;

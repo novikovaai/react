@@ -1,6 +1,6 @@
 import './Input.module.css';
 import cn from 'classnames';
-import style from '../JournalForm/JournalForm.module.css';
+import style from '../Input/Input.module.css';
 import {forwardRef} from 'react';
 
 const Input = forwardRef(

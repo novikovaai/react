@@ -1,9 +1,9 @@
 import './JournalAddButton.css';
 import CardButton from '../CardButton/CardButton.jsx';
-function JournalAddButton() {
+function JournalAddButton({clearForm}) {
 	return (
 		<>
-			<CardButton className='journal-add-button'>
+			<CardButton className='journal-add-button' onClick={clearForm}>
 				<img src="/plus.svg" alt=""/>
 				Новое воспоминание
 			</CardButton>

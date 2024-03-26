@@ -1,22 +1,18 @@
 import './Header.css';
 import SelectUser from '../SelectUser/SelectUser.jsx';
 import Button from '../Button/Button.jsx';
-import {useState} from 'react';
+import { useState} from 'react';
+import Logo from '../Logo/Logo.jsx';
 
-const logos = ['/journal-logo.svg', '/vite.svg'];
+const logo = '/journal-logo.svg';
 
 function Header() {
-	const [logoIndex, setLogoIndex] = useState(0);
 
-	const toggleLogo = () => {
-		setLogoIndex(state => Number(!state));
-	};
 
 	return (
 		<>
-			<img className='logo' src={logos[logoIndex]} alt=""/>
+			<Logo image={logo}/>
 			<SelectUser/>
-			<Button onClick={toggleLogo}>Сменить лого</Button>
 		</>
 	);
 }

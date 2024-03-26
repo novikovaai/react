@@ -35,5 +35,8 @@ export function formReducer(state, action) {
 			isFormReadyToSubmit: titleValidity && textValidity && dateValidity
 		};
 	}
+	case 'DELETE' : {
+
+	}
 	}
 }
