@@ -1,0 +1,15 @@
+.input {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--input-text-color);
+    border: 1px solid var(--border-color);
+    background: none;
+    width: 324px;
+    padding: 20px;
+}
+
+.invalid {
+    border: 1px solid var(--invalid-primary-color);
+    background: var(--invalid-secondary-color);
+}
