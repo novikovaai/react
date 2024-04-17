@@ -1,5 +1,7 @@
 import styles from'./CardButton.module.css';
-function CardButton({children}) {
+import {CardButtonProps} from './CardButton.props';
+
+function CardButton({children}: CardButtonProps) {
 	return (
 		<>
 			<button className={styles['card-button']}>{children}</button>

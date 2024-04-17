@@ -1,7 +1,7 @@
 import styles from './Navigation.module.css';
 import cn from 'classnames';
 import {useContext} from 'react';
-import {UserContext} from '../../context/user.context.jsx';
+import {UserContext} from '../../context/user.context.tsx';
 
 function Navigation() {
 	const {userInfo} = useContext(UserContext);

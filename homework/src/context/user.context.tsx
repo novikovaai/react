@@ -1,8 +1,15 @@
-import {createContext, useEffect, useState} from 'react';
-import {useLocalStorage} from '../hooks/use-localstorage.hook.js';
+import {createContext, ReactNode, useState} from 'react';
+import {useLocalStorage} from '../hooks/use-localstorage.hook.ts';
+import {ContextProps} from "./Context.props.ts";
+
+export interface User {
+	name: string,
+	isLogged: boolean,
+	favList: number[]
+}
 
 
-export const UserContext = createContext(
+export const UserContext = createContext<User>(
 	{
 		name: '',
 		isLogged: false,
@@ -20,13 +27,13 @@ function mapItems(data) {
 	}));
 }
 
-export const UserContextProvider = ({children}) => {
-	const [userInfo, setUserInfo] = useState({
+export const UserContextProvider = ({children}: ContextProps) => {
+	const [userInfo, setUserInfo] = useState<User>({
 		name: '',
 		isLogged: false,
 		favList: []
 	});
-	const [userData, setUserData] = useLocalStorage('users');
+	const [userData, setUserData] = useLocalStorage<User[]>('users');
 
 	const addUserData = item => {
 		const userExists = userData.find(el => el.name === item);

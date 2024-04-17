@@ -1,7 +1,7 @@
 import styles from './Profile.module.css';
 import cn from 'classnames';
 import {useContext, useEffect, useState} from 'react';
-import {UserContext} from '../../context/user.context.jsx';
+import {UserContext} from '../../context/user.context.tsx';
 
 
 function Profile() {

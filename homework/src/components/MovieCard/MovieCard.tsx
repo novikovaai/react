@@ -1,7 +1,7 @@
 import styles from './MovieCard.module.css';
 import {useContext, useState} from 'react';
 import cn from 'classnames';
-import {UserContext} from '../../context/user.context.jsx';
+import {UserContext} from '../../context/user.context.tsx';
 
 function MovieCard({reviews, poster, title, id}) {
 

@@ -1,8 +1,8 @@
 import styles from './MovieList.module.css';
-import CardButton from '../CardButton/CardButton.jsx';
-import MovieCard from '../MovieCard/MovieCard.jsx';
+import CardButton from '../CardButton/CardButton.tsx';
+import MovieCard from '../MovieCard/MovieCard.tsx';
 import {useContext} from 'react';
-import {UserContext} from '../../context/user.context.jsx';
+import {UserContext} from '../../context/user.context.tsx';
 
 
 function MovieList() {

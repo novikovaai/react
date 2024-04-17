@@ -1,11 +1,30 @@
-export const formType = {
-	'search': {
+export interface FormType {
+	search: {
+		placeholder: string
+		img: string
+		text: string
+		formClass: string}
+	login: {
+		placeholder: string
+		img: string
+		text: string
+		formClass: string}
+}
+
+export interface FormState {
+	value: string,
+	isValid: boolean,
+	isFormReadyToSubmit: boolean
+}
+
+export const formType: FormType = {
+	search: {
 		placeholder: 'Введите название',
 		img: '/public/search-icon.svg',
 		text: 'Искать',
 		formClass: 'form-search'
 	},
-	'login': {
+	login: {
 		placeholder: 'Ваше имя',
 		img: '',
 		text: 'Войти в профиль',
@@ -13,7 +32,9 @@ export const formType = {
 	}
 };
 
-export const INITIAL_STATE = {
+
+
+export const INITIAL_STATE: FormState  = {
 	value: '',
 	isValid: true,
 	isFormReadyToSubmit: false
