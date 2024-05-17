@@ -17,6 +17,8 @@ export interface FormState {
 	isFormReadyToSubmit: boolean
 }
 
+
+
 export const formType: FormType = {
 	search: {
 		placeholder: 'Введите название',
@@ -32,25 +34,27 @@ export const formType: FormType = {
 	}
 };
 
-
-
 export const INITIAL_STATE: FormState  = {
 	value: '',
 	isValid: true,
 	isFormReadyToSubmit: false
 };
 
-export function formReducer(state, action) {
+export type LoginAction =
+	| {type: 'RESET_VALIDITY' | 'CLEAR'}
+	| {type: 'SET_VALUE', payload: { value: string }}
+	| {type:  'SUBMIT', payload:  string}
+
+export function formReducer(state: FormState, action: LoginAction) {
 	switch (action.type) {
 	case 'SET_VALUE':
 		return {...state, ...action.payload};
 	case 'RESET_VALIDITY':
 		return {...state, isValid: INITIAL_STATE.isValid};
 	case 'SUBMIT': {
-		const type = Object.keys(action.payload)[0];
-		const validity = action.payload?.[type].trim().length > 0;
+		const validity = action.payload?.trim().length > 0;
 		return {
-			value: action.payload[type],
+			value: action.payload,
 			isValid: validity,
 			isFormReadyToSubmit: validity
 		};

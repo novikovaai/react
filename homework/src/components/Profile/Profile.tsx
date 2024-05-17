@@ -1,6 +1,6 @@
 import styles from './Profile.module.css';
 import cn from 'classnames';
-import {useContext, useEffect, useState} from 'react';
+import {useContext} from 'react';
 import {UserContext} from '../../context/user.context.tsx';
 
 
@@ -8,7 +8,10 @@ function Profile() {
 	const {userInfo, userLogout} = useContext(UserContext);
 
 	const logout = () => {
-		userLogout()
+		if (userLogout) {
+			userLogout();
+		}
+
 	};
 
 

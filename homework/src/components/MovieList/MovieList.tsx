@@ -1,8 +1,6 @@
 import styles from './MovieList.module.css';
 import CardButton from '../CardButton/CardButton.tsx';
 import MovieCard from '../MovieCard/MovieCard.tsx';
-import {useContext} from 'react';
-import {UserContext} from '../../context/user.context.tsx';
 
 
 function MovieList() {
@@ -57,7 +55,7 @@ function MovieList() {
 		}
 
 	];
-	const {userInfo} = useContext(UserContext);
+
 	if (movies.length === 0) {
 		return <p>Давайте что-нибудь найдем!</p>;
 	}
@@ -70,7 +68,7 @@ function MovieList() {
 					reviews={e.reviews}
 					poster={e.poster}
 					id={e.id}
-					inFavs={userInfo.favList.includes(e.id)}
+					title={e.title}
 				/>
 			</CardButton>;
 		})}

@@ -10,12 +10,11 @@ import {FormProps} from './Form.props';
 function Form({type, func} : FormProps) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const { isValid, value, isFormReadyToSubmit }: FormState = formState;
-	const inputRef = useRef();
+	const inputRef = useRef<HTMLInputElement>(null);
 	const { addUserData } = useContext(UserContext);
-	// const [userData] = useLocalStorage('users');
 	const focusError = (isValid: boolean) => {
 		if(!isValid) {
-			inputRef.current.focus();
+			inputRef.current?.focus();
 		}
 	};
 	useEffect(() => {
@@ -34,24 +33,36 @@ function Form({type, func} : FormProps) {
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
 			if (type === 'login') {
-				addUserData(value);
+				if (addUserData) {
+					addUserData(value);
+				}
 				dispatchForm({type: 'CLEAR'});
 			} else {
-				func(value);
+				if(func) {
+					func(value);
+				}
+
 			}
 		}
 	}, [isFormReadyToSubmit, value, func, type]);
 
 
-	const onChange = (e) => {
-		dispatchForm({type: 'SET_VALUE', payload: {value: e.target.value}});
+	const onChange  = (e: React.FormEvent<HTMLInputElement>) => {
+		console.log(e.target);
+		const targ = e.target as HTMLInputElement;
+		dispatchForm({type: 'SET_VALUE', payload: {value: targ.value}});
 	};
 
-	const submitForm = (e) => {
+	const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const formDate = new FormData(e.target);
-		const formProps = Object.fromEntries(formDate);
-		dispatchForm({type: 'SUBMIT', payload: formProps});
+		if(e.target) {
+			const form  = e.target as HTMLFormElement;
+			const formDate = new FormData(form);
+			const formProps = Object.fromEntries(formDate);
+			const toSend = formProps[Object.keys(formProps)[0]] as string
+			dispatchForm({type: 'SUBMIT', payload: toSend});
+		}
+
 	};
 	return (
 		<>

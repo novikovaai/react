@@ -1,6 +1,6 @@
-import {createContext, ReactNode, useState} from 'react';
+import {createContext, useState} from 'react';
 import {useLocalStorage} from '../hooks/use-localstorage.hook.ts';
-import {ContextProps} from "./Context.props.ts";
+import {ContextProps} from './Context.props.ts';
 
 export interface User {
 	name: string,
@@ -8,16 +8,26 @@ export interface User {
 	favList: number[]
 }
 
+interface IUserContext {
+	userInfo: User;
+	switchFavs?: (id: number) => void;
+	userLogout?: () => void;
+	addUserData?: (item: string) => void
+}
 
-export const UserContext = createContext<User>(
-	{
+
+
+
+export const UserContext = createContext<IUserContext>({
+	userInfo: {
 		name: '',
 		isLogged: false,
 		favList: []
 	}
+}
 );
 
-function mapItems(data) {
+function mapItems(data: User[]): User[] {
 	if (!data) {
 		return [];
 	}
@@ -33,10 +43,10 @@ export const UserContextProvider = ({children}: ContextProps) => {
 		isLogged: false,
 		favList: []
 	});
-	const [userData, setUserData] = useLocalStorage<User[]>('users');
+	const [userData, setUserData] = useLocalStorage<User>('users');
 
-	const addUserData = item => {
-		const userExists = userData.find(el => el.name === item);
+	const addUserData = (item: string) => {
+		const userExists = userData.find((el:User) => el.name === item);
 		if (userExists) {
 			setUserData(userData.map(el => {
 				if (el.name === userExists.name) {
@@ -69,6 +79,8 @@ export const UserContextProvider = ({children}: ContextProps) => {
 			favList: []
 		});
 	};
+
+	
 	const userLogout = () => {
 		setUserData(userData.map(el => {
 			if (el.name === userInfo.name) {
@@ -90,7 +102,7 @@ export const UserContextProvider = ({children}: ContextProps) => {
 			favList: []
 		});
 	};
-	const switchFavs = (id) => {
+	const switchFavs = (id: number) => {
 		const inFavs = userInfo.favList.indexOf(id);
 		console.log(userInfo.favList);
 		if(inFavs > -1) {

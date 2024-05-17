@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import {User} from '../context/user.context.tsx';
 
 
-export function useLocalStorage(key: string) {
-	const [data, setData] = useState<[]>();
+export function useLocalStorage<T>(key: string) : [T[], (newData: T[]) => void] {
+	const [data, setData] = useState<T[]>([]);
 
 	useEffect(() => {
-		const res: [] = JSON.parse(localStorage.getItem(key));
-		if (res) {
-			setData(res);
+		const item = localStorage.getItem(key);
+		if(item){
+			const res: [] = JSON.parse(item);
+			if (res) {
+				setData(res);
+			}
 		}
-	}, []);
-	const saveData = (newData: User[]) => {
 
+	}, []);
+	const saveData = (newData: T[]) => {
+		console.log(newData);
 		localStorage.setItem(key, JSON.stringify(newData));
 		setData(newData);
 	};
