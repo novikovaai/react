@@ -1,0 +1,32 @@
+.search_top {
+    position: relative;
+}
+
+.search {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    background: none;
+    min-width: 256px;
+    padding: 16px 20px 16px 44px;
+    border-radius: 10px;
+    background: #FCFCFD;
+
+}
+
+.search_icon {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+}
+
+.invalid {
+    border: 1px solid var(--invalid-primary-color);
+    background: var(--invalid-secondary-color);
+}
+
+.input::placeholder {
+    color: var(--search-color);
+}

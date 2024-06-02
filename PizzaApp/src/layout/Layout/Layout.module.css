@@ -1,0 +1,91 @@
+.layout {
+
+    min-height: 100vh;
+
+    display: flex;
+}
+
+.sidebar {
+    border-right: 1px solid var(--separator-color);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+    margin-bottom: 46px;
+}
+
+.profile img {
+    width: 90px;
+    height: 90px;
+}
+
+.profile__info{
+
+}
+
+.profile__name {
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+.profile__email {
+    color: var(--ghost-color);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.side-menu_navigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.menu_item {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.menu_item:hover {
+    color: var(--primary-color);
+}
+
+.active {
+    color: var(--primary-hover-color);
+}
+
+.cart-counter {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    text-align: center;
+    width: fit-content;
+    padding: 0px 8px 0px 8px;
+    margin-left: -8px;
+}
+
+.logout-button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: auto;
+}
+
+.content {
+    margin: 40px 64px;
+    width: 100%;
+}
