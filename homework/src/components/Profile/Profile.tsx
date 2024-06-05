@@ -2,6 +2,7 @@ import styles from './Profile.module.css';
 import cn from 'classnames';
 import {useContext} from 'react';
 import {UserContext} from '../../context/user.context.tsx';
+import {NavLink} from 'react-router-dom'
 
 
 function Profile() {
@@ -23,7 +24,9 @@ function Profile() {
 					[styles['profile__inactive']]: userInfo.isLogged
 				}
 			)}>
-				<a href="#">Войти</a>
+				<NavLink to='/login' className={({isActive}) => cn({
+					[styles['navigation__active']]: isActive
+				})}>Войти</NavLink>
 				<img src="/public/login-icon.svg" alt=""/>
 			</div>
 			<div className={cn(
