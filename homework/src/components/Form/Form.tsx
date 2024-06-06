@@ -1,11 +1,10 @@
-import styles from './Form.module.css';
 import Input from '../Input/Input';
 import Button from '../Button/Button.tsx';
 import {formType, INITIAL_STATE, formReducer, FormState} from './Form.state';
 import {useRef, useReducer, useEffect, useContext} from 'react';
 import {UserContext} from '../../context/user.context.tsx';
 import {FormProps} from './Form.props';
-
+import styles from './Form.module.css';
 
 function Form({type, func} : FormProps) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);

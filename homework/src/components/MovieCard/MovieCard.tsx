@@ -1,12 +1,10 @@
-import styles from './MovieCard.module.css';
 import {useContext} from 'react';
 import cn from 'classnames';
 import {UserContext} from '../../context/user.context.tsx';
 import {MovieCardProps} from './MovieCard.props.ts';
+import styles from './MovieCard.module.css';
 
 function MovieCard({reviews, poster, title, id} : MovieCardProps) {
-
-
 	const {userInfo,switchFavs} = useContext(UserContext);
 	const inFavs = userInfo.favList.includes(id);
 	const toSwitch = () => {

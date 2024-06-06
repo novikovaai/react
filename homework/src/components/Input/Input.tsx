@@ -1,7 +1,7 @@
-import styles from './Input.module.css';
 import {forwardRef} from 'react';
 import cn from 'classnames';
 import {InputProps} from './Input.props';
+import styles from './Input.module.css';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
 	function Input({img, type, isValid=true, ...props}: InputProps, ref) {

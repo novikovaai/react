@@ -1,5 +1,5 @@
-import styles from './Paragraph.module.css';
 import {ParagraphProps} from './Paragraph.props';
+import styles from './Paragraph.module.css';
 
 function Paragraph({children}: ParagraphProps) {
 

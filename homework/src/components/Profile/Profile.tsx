@@ -1,9 +1,8 @@
-import styles from './Profile.module.css';
 import cn from 'classnames';
 import {useContext} from 'react';
 import {UserContext} from '../../context/user.context.tsx';
-import {NavLink} from 'react-router-dom'
-
+import {NavLink} from 'react-router-dom';
+import styles from './Profile.module.css';
 
 function Profile() {
 	const {userInfo, userLogout} = useContext(UserContext);
@@ -14,7 +13,6 @@ function Profile() {
 		}
 
 	};
-
 
 	return (
 		<div className={styles.profile}>

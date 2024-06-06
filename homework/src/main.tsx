@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {Favorites} from './pages/Favorites/Favorites.tsx';
 import {Login} from './pages/Login/Login.tsx';
@@ -9,7 +7,7 @@ import {Movie} from './pages/Movie/Movie.tsx';
 import {Layout} from './layouts/Layout/Layout.tsx';
 import {Search} from './pages/Search/Search.tsx';
 import {Error} from './pages/Error/Error.tsx';
-
+import './index.css';
 
 const router = createBrowserRouter([
 	{ 	path: '/',

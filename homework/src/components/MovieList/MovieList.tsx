@@ -1,7 +1,6 @@
-import styles from './MovieList.module.css';
 import CardButton from '../CardButton/CardButton.tsx';
 import MovieCard from '../MovieCard/MovieCard.tsx';
-
+import styles from './MovieList.module.css';
 
 function MovieList() {
 	const movies = [

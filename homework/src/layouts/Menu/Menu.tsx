@@ -1,6 +1,6 @@
-import styles from './Menu.module.css';
 import Logo from '../../components/Logo/Logo';
 import {MenuProps} from './Menu.props';
+import styles from './Menu.module.css';
 
 function Menu({children}: MenuProps) {
 
