@@ -1,18 +1,15 @@
 import cn from 'classnames';
-import {useContext} from 'react';
-import {UserContext} from '../../context/user.context.tsx';
 import {NavLink} from 'react-router-dom';
 import styles from './Profile.module.css';
+import {useUserContext} from "../../hooks/useUserContext.ts";
+import {useCallback} from "react";
 
 function Profile() {
-	const {userInfo, userLogout} = useContext(UserContext);
+	const {userInfo, userLogout} = useUserContext();
 
-	const logout = () => {
-		if (userLogout) {
-			userLogout();
-		}
-
-	};
+	const logout = useCallback(() => {
+		userLogout();
+	}, [userLogout]) ;
 
 	return (
 		<div className={styles.profile}>

@@ -2,7 +2,7 @@ import {Outlet} from 'react-router-dom';
 import Menu from "../Menu/Menu.tsx";
 import Navigation from "../../components/Navigation/Navigation.tsx";
 import Profile from "../../components/Profile/Profile.tsx";
-import {UserContextProvider} from '../../context/user.context';
+import {UserContextProvider} from '../../context/user.tsx';
 import styles from './Layout.module.css';
 
 export function Layout() {

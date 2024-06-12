@@ -1,5 +1,5 @@
 import {createContext, useState} from 'react';
-import {useLocalStorage} from '../hooks/use-localstorage.hook.ts';
+import {useLocalStorage} from '../hooks/useLocalStorage.ts';
 import {ContextProps} from './Context.props.ts';
 
 export interface User {
@@ -14,9 +14,6 @@ interface IUserContext {
 	userLogout?: () => void;
 	addUserData?: (item: string) => void
 }
-
-
-
 
 export const UserContext = createContext<IUserContext>({
 	userInfo: {

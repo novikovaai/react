@@ -1,11 +1,10 @@
 import cn from 'classnames';
-import {useContext} from 'react';
-import {UserContext} from '../../context/user.context.tsx';
 import {NavLink} from 'react-router-dom';
 import styles from './Navigation.module.css';
+import {useUserContext} from "../../hooks/useUserContext.ts";
 
 function Navigation() {
-	const {userInfo} = useContext(UserContext);
+	const {userInfo} = useUserContext();
 
 	return (
 		<>
