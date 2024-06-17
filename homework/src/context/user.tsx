@@ -1,16 +1,30 @@
-import {createContext, useEffect, useState} from 'react';
-import {useLocalStorage} from '../hooks/use-localstorage.hook.js';
+import {createContext, useState} from 'react';
+import {useLocalStorage} from '../hooks/useLocalStorage.ts';
+import {ContextProps} from './Context.props.ts';
 
+export interface User {
+	name: string,
+	isLogged: boolean,
+	favList: number[]
+}
 
-export const UserContext = createContext(
-	{
+interface IUserContext {
+	userInfo: User;
+	switchFavs?: (id: number) => void;
+	userLogout?: () => void;
+	addUserData?: (item: string) => void
+}
+
+export const UserContext = createContext<IUserContext>({
+	userInfo: {
 		name: '',
 		isLogged: false,
 		favList: []
 	}
+}
 );
 
-function mapItems(data) {
+function mapItems(data: User[]): User[] {
 	if (!data) {
 		return [];
 	}
@@ -20,16 +34,16 @@ function mapItems(data) {
 	}));
 }
 
-export const UserContextProvider = ({children}) => {
-	const [userInfo, setUserInfo] = useState({
+export const UserContextProvider = ({children}: ContextProps) => {
+	const [userInfo, setUserInfo] = useState<User>({
 		name: '',
 		isLogged: false,
 		favList: []
 	});
-	const [userData, setUserData] = useLocalStorage('users');
+	const [userData, setUserData] = useLocalStorage<User>('users');
 
-	const addUserData = item => {
-		const userExists = userData.find(el => el.name === item);
+	const addUserData = (item: string) => {
+		const userExists = userData.find((el:User) => el.name === item);
 		if (userExists) {
 			setUserData(userData.map(el => {
 				if (el.name === userExists.name) {
@@ -62,6 +76,8 @@ export const UserContextProvider = ({children}) => {
 			favList: []
 		});
 	};
+
+	
 	const userLogout = () => {
 		setUserData(userData.map(el => {
 			if (el.name === userInfo.name) {
@@ -83,7 +99,7 @@ export const UserContextProvider = ({children}) => {
 			favList: []
 		});
 	};
-	const switchFavs = (id) => {
+	const switchFavs = (id: number) => {
 		const inFavs = userInfo.favList.indexOf(id);
 		console.log(userInfo.favList);
 		if(inFavs > -1) {

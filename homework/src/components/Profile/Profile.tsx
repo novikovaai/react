@@ -1,16 +1,15 @@
-import styles from './Profile.module.css';
 import cn from 'classnames';
-import {useContext, useEffect, useState} from 'react';
-import {UserContext} from '../../context/user.context.jsx';
-
+import {NavLink} from 'react-router-dom';
+import styles from './Profile.module.css';
+import {useUserContext} from "../../hooks/useUserContext.ts";
+import {useCallback} from "react";
 
 function Profile() {
-	const {userInfo, userLogout} = useContext(UserContext);
+	const {userInfo, userLogout} = useUserContext();
 
-	const logout = () => {
-		userLogout()
-	};
-
+	const logout = useCallback(() => {
+		userLogout();
+	}, [userLogout]) ;
 
 	return (
 		<div className={styles.profile}>
@@ -20,7 +19,9 @@ function Profile() {
 					[styles['profile__inactive']]: userInfo.isLogged
 				}
 			)}>
-				<a href="#">Войти</a>
+				<NavLink to='/login' className={({isActive}) => cn({
+					[styles['navigation__active']]: isActive
+				})}>Войти</NavLink>
 				<img src="/public/login-icon.svg" alt=""/>
 			</div>
 			<div className={cn(

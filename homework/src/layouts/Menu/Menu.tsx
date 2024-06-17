@@ -1,7 +1,8 @@
+import Logo from '../../components/Logo/Logo';
+import {MenuProps} from './Menu.props';
 import styles from './Menu.module.css';
-import Logo from '../../components/Logo/Logo.jsx';
 
-function Menu({children}) {
+function Menu({children}: MenuProps) {
 
 	return (
 		<div className={styles.menu}>
