@@ -1,8 +1,8 @@
 
 
 export interface MovieCardProps{
-    reviews: number,
+    reviews: string,
     poster: string,
     title: string,
-    id: number
+    id: string
 }

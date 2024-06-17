@@ -1,16 +1,16 @@
 import Input from '../Input/Input';
 import Button from '../Button/Button.tsx';
-import {formType, INITIAL_STATE, formReducer, FormState} from './Form.state';
-import {useRef, useReducer, useEffect, useContext} from 'react';
+import {formType, FormState, formReducer, INITIAL_STATE} from './Form.state';
+import React, {useRef, useReducer, useEffect} from 'react';
 import {FormProps} from './Form.props';
 import styles from './Form.module.css';
-import {useUserContext} from "../../hooks/useUserContext.ts";
+import {useUser} from "../../hooks/useUser.ts";
 
 function Form({type, func} : FormProps) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const { isValid, value, isFormReadyToSubmit }: FormState = formState;
 	const inputRef = useRef<HTMLInputElement>(null);
-	const { addUserData } = useUserContext();
+	const { addUserData } = useUser();
 	const focusError = (isValid: boolean) => {
 		if(!isValid) {
 			inputRef.current?.focus();
@@ -37,6 +37,7 @@ function Form({type, func} : FormProps) {
 			} else {
 				if(func) {
 					func(value);
+					dispatchForm({type: 'CLEAR'});
 				}
 
 			}
