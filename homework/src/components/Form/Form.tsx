@@ -5,12 +5,14 @@ import React, {useRef, useReducer, useEffect} from 'react';
 import {FormProps} from './Form.props';
 import styles from './Form.module.css';
 import {useUser} from "../../hooks/useUser.ts";
+import {useNavigate} from "react-router-dom";
 
 function Form({type, func} : FormProps) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
 	const { isValid, value, isFormReadyToSubmit }: FormState = formState;
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { addUserData } = useUser();
+	const navigate = useNavigate();
 	const focusError = (isValid: boolean) => {
 		if(!isValid) {
 			inputRef.current?.focus();
@@ -34,10 +36,12 @@ function Form({type, func} : FormProps) {
 			if (type === 'login') {
 				addUserData(value);
 				dispatchForm({type: 'CLEAR'});
+				navigate('/');
 			} else {
 				if(func) {
 					func(value);
 					dispatchForm({type: 'CLEAR'});
+
 				}
 
 			}

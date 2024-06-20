@@ -2,7 +2,7 @@ import cn from 'classnames';
 import {MovieCardProps} from './MovieCard.props.ts';
 import styles from './MovieCard.module.css';
 import {useUser} from "../../hooks/useUser.ts";
-import React, {BaseSyntheticEvent, MouseEventHandler, useCallback} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 
 function MovieCard({reviews, poster, title, id} : MovieCardProps) {

@@ -10,6 +10,7 @@ import {Error} from './pages/Error/Error.tsx';
 import './index.css';
 import axios from "axios";
 import {PREFIX} from "./helpers/API.ts";
+import {RequireAuth} from "./helpers/RequireAuth.tsx";
 
 const router = createBrowserRouter([
 	{ 	path: '/',
@@ -19,13 +20,13 @@ const router = createBrowserRouter([
 				element: <Login/>
 			},
 			{ 	path: '/favorites',
-				element: <Favorites/>
+				element: <RequireAuth><Favorites/></RequireAuth>
 			},
 			{ 	path: '/',
-				element: <Search/>
+				element: <RequireAuth><Search/></RequireAuth>
 			},
 			{ 	path: '/movie/:id',
-				element: <Movie/>,
+				element: <RequireAuth><Movie/></RequireAuth>,
 				errorElement: <>Ошибка</>,
 				loader: async ({params}) => {
 					console.log(params);
