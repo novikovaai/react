@@ -1,10 +1,15 @@
-import {NavLink, Outlet} from 'react-router-dom';
+import {NavLink, Outlet, useNavigate} from 'react-router-dom';
 
 import styles from './Layout.module.css';
 import Button from '../../components/Button/Button.tsx';
 import cn from 'classnames';
 
 export function Layout() {
+	const navigate = useNavigate();
+	const logout = () => {
+		localStorage.removeItem('jwt');
+		navigate('/auth/login');
+	};
 
 	return <div className={styles['layout']}>
 		<div className={styles['sidebar']}>
@@ -26,7 +31,7 @@ export function Layout() {
 							className={styles['cart-counter']}>0</div></NavLink>
 				</div>
 			</div>
-			<Button className={styles['logout-button']}><img src='/logout-icon.svg'/>Выйти</Button>
+			<Button className={styles['logout-button']} onClick={logout}><img src='/logout-icon.svg'/>Выйти</Button>
 		</div>
 		<div className={ styles['content'] }><Outlet/></div>
 	</div>;

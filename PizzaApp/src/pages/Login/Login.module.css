@@ -1,0 +1,53 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 70px;
+}
+
+
+.login__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--input-text-color);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.login-noaccount {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+    align-items: center;
+}
+
+.login-noaccount p {
+    margin: 0;
+    padding: 0;
+}
+
+.login__register {
+    color: var(--primary-color);
+ }
+
+.error {
+    color: red;
+}
+
+
+
+

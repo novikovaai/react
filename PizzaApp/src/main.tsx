@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {createBrowserRouter, defer, RouterProvider} from 'react-router-dom';
@@ -9,10 +9,14 @@ import {Layout} from './layout/Layout/Layout.tsx';
 import {Product} from './pages/Product/Product.tsx';
 import axios from 'axios';
 import {PREFIX} from './helpers/API.ts';
+import {AuthLayout} from './layout/Auth/AuthLayout.tsx';
+import {Login} from './pages/Login/Login.tsx';
+import {Register} from './pages/Register/Register.tsx';
+import {RequireAuth} from './helpers/RequireAuth.tsx';
 
 const router = createBrowserRouter([
 	{ 	path: '/',
-		element: <Layout/>,
+		element: <RequireAuth><Layout/> </RequireAuth>,
 		children: [
 			{ 	path: '/cart',
 				element: <Cart/>
@@ -40,6 +44,20 @@ const router = createBrowserRouter([
 			}
 			
 		]
+	},
+	{ path: '/auth',
+		element: <AuthLayout/>,
+		children: [
+			{
+				path: 'login',
+				element: <Login/>
+			},
+			{
+				path: 'register',
+				element: <Register/>
+			}
+		]
+
 	},
 	{ 	path: '*',
 		element: <ErrorPage/>
