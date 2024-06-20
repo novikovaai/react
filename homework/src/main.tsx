@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, defer, RouterProvider} from 'react-router-dom';
 import {Favorites} from './pages/Favorites/Favorites.tsx';
 import {Login} from './pages/Login/Login.tsx';
 import {Movie} from './pages/Movie/Movie.tsx';
@@ -8,6 +8,9 @@ import {Layout} from './layouts/Layout/Layout.tsx';
 import {Search} from './pages/Search/Search.tsx';
 import {Error} from './pages/Error/Error.tsx';
 import './index.css';
+import axios from "axios";
+import {PREFIX} from "./helpers/API.ts";
+import {RequireAuth} from "./helpers/RequireAuth.tsx";
 
 const router = createBrowserRouter([
 	{ 	path: '/',
@@ -17,13 +20,20 @@ const router = createBrowserRouter([
 				element: <Login/>
 			},
 			{ 	path: '/favorites',
-				element: <Favorites/>
+				element: <RequireAuth><Favorites/></RequireAuth>
 			},
 			{ 	path: '/',
-				element: <Search/>
+				element: <RequireAuth><Search/></RequireAuth>
 			},
 			{ 	path: '/movie/:id',
-				element: <Movie/>
+				element: <RequireAuth><Movie/></RequireAuth>,
+				errorElement: <>Ошибка</>,
+				loader: async ({params}) => {
+					console.log(params);
+					return defer({
+					 	data: axios.get(`${PREFIX}&i=${params.id}&plot=full`).then(data => data)
+					});
+				}
 			}
 
 		]

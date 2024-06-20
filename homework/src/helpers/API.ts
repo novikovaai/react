@@ -1,0 +1,1 @@
+export const PREFIX = 'http://www.omdbapi.com/?apikey=3460d285'

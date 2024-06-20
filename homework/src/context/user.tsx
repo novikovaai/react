@@ -5,12 +5,12 @@ import {ContextProps} from './Context.props.ts';
 export interface User {
 	name: string,
 	isLogged: boolean,
-	favList: number[]
+	favList: string[]
 }
 
 interface IUserContext {
 	userInfo: User;
-	switchFavs?: (id: number) => void;
+	switchFavs?: (id: string) => void;
 	userLogout?: () => void;
 	addUserData?: (item: string) => void
 }
@@ -99,7 +99,7 @@ export const UserContextProvider = ({children}: ContextProps) => {
 			favList: []
 		});
 	};
-	const switchFavs = (id: number) => {
+	const switchFavs = (id: string) => {
 		const inFavs = userInfo.favList.indexOf(id);
 		console.log(userInfo.favList);
 		if(inFavs > -1) {

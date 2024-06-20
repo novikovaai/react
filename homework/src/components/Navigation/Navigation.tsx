@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import {NavLink} from 'react-router-dom';
 import styles from './Navigation.module.css';
-import {useUserContext} from "../../hooks/useUserContext.ts";
+import {useUser} from "../../hooks/useUser.ts";
 
 function Navigation() {
-	const {userInfo} = useUserContext();
+	const {userInfo} = useUser();
 
 	return (
 		<>
